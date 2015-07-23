@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <getopt.h>
 #include "version.h"
+#include "gtk/app.h"
 
 void help(void) __attribute__ ((noreturn));
 void usage(void) __attribute__ ((noreturn));
@@ -51,5 +52,6 @@ int main(int argc, char *argv[]){
 			usage();
 		}
 	}
+	app_init(argc, argv);
 	return EXIT_SUCCESS;
 }

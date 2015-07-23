@@ -6,6 +6,10 @@ CC = clang
 CFLAGS = -std=c11 -Weverything
 LDFALGS =
 
+PKGCONFIG = pkg-config
+CFLAGS += `$(PKGCONFIG) --cflags gtk+-3.0`
+LDFLAGS += `$(PKGCONFIG) --libs gtk+-3.0`
+
 EXEC = libreforge
 MAN1 = libreforge.1.gz
 VERSION = 0.0.1
@@ -22,7 +26,8 @@ all: $(EXEC) gnuman
 $(EXEC): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ -- $(OBJS)
 
-obj/main.o: src/version.h
+obj/main.o: src/version.h src/gtk/app.h
+obj/gtk/app.o: src/gtk/app.h src/gtk/gtk.h
 
 $(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
 	@mkdir -p $(@D)
